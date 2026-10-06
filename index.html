@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bức thư dành cho bạn ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffd6e0, #ffeef2);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* =========================
+           TRÁI TIM
+        ========================= */
+
+        .heart-container {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .heart {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: #ff4f81;
+            transform: rotate(-45deg);
+            margin: auto;
+            animation: heartbeat 1.3s infinite;
+            box-shadow: 0 10px 30px rgba(255, 79, 129, 0.4);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: #ff4f81;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -75px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 75px;
+        }
+
+        .heart-text {
+            position: absolute;
+            z-index: 5;
+
+            width: 200px;
+            left: -25px;
+            top: 60px;
+
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+
+            transform: rotate(45deg);
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: rotate(-45deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(-45deg) scale(1.08);
+            }
+        }
+
+        .click-text {
+            margin-top: 80px;
+            color: #d63362;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           BỨC THƯ
+        ========================= */
+
+        .letter {
+            display: none;
+
+            width: 90%;
+            max-width: 550px;
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+
+            animation: openLetter 0.8s ease;
+        }
+
+        @keyframes openLetter {
+
+            from {
+                opacity: 0;
+                transform: scale(0.5) translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .letter h1 {
+            color: #e83e6f;
+            margin-bottom: 20px;
+        }
+
+        .letter p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 17px;
+            margin-bottom: 18px;
+        }
+
+
+        /* =========================
+           HÌNH ẢNH
+        ========================= */
+
+        .photo {
+            width: 100%;
+            max-height: 400px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            margin: 15px 0;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =========================
+           NÚT ĐÓNG
+        ========================= */
+
+        .close-btn {
+            border: none;
+
+            background: #ff4f81;
+            color: white;
+
+            padding: 12px 25px;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .close-btn:hover {
+            background: #e83e6f;
+        }
+
+
+        /* =========================
+           TIM BAY
+        ========================= */
+
+        .floating-heart {
+            position: fixed;
+
+            bottom: -30px;
+
+            font-size: 25px;
+
+            animation: floatUp 5s linear infinite;
+
+            opacity: 0.7;
+
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+
+            from {
+                transform: translateY(0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            to {
+                transform: translateY(-110vh);
+                opacity: 0;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         TRÁI TIM BAN ĐẦU
+    ========================= -->
+
+    <div class="heart-container"
+         id="heartContainer"
+         onclick="openLetter()">
+
+        <div class="heart">
+
+            <div class="heart-text">
+                💌 Mở thư
+            </div>
+
+        </div>
+
+        <div class="click-text">
+            Chạm vào trái tim nhé ❤️
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         BỨC THƯ
+    ========================= -->
+
+    <div class="letter" id="letter">
+
+        <h1>
+            💌 Gửi bạn
+        </h1>
+
+
+        <p>
+            Có một điều mình muốn gửi đến bạn...
+        </p>
+
+
+        <!--
+            HÌNH ẢNH
+
+            Đặt hình của bạn vào thư mục:
+
+            static
+
+            Ví dụ:
+
+            static/anh1.jpg
+        -->
+
+        <img
+            src="{{ url_for('static', filename='anh1.jpg') }}"
+            class="photo"
+            alt="Kỷ niệm">
+
+
+        <p>
+            CÓ CÁI LOZ. ❤️
+        </p>
+
+
+    
+
+
+        <p>
+            <b>
+                ❤️ From HĐ ❤️
+            </b>
+        </p>
+
+
+        <button
+            class="close-btn"
+            onclick="closeLetter()">
+
+            Đóng thư
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        // MỞ THƯ
+        function openLetter() {
+
+            document.getElementById("heartContainer").style.display = "none";
+
+            document.getElementById("letter").style.display = "block";
+
+        }
+
+
+        // ĐÓNG THƯ
+        function closeLetter() {
+
+            document.getElementById("letter").style.display = "none";
+
+            document.getElementById("heartContainer").style.display = "block";
+
+        }
+
+
+        // TẠO TIM BAY
+        function createHeart() {
+
+            const heart = document.createElement("div");
+
+            heart.classList.add("floating-heart");
+
+            heart.innerHTML = "❤️";
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+
+            setTimeout(function () {
+
+                heart.remove();
+
+            }, 7000);
+
+        }
+
+
+        // Cứ 700ms tạo một trái tim
+        setInterval(createHeart, 700);
+
+    </script>
+
+
+</body>
+
+</html>
